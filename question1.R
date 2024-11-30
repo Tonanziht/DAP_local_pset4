@@ -3,6 +3,8 @@ library(dplyr)
 library(arrow)
 library(ggrepel)
 
+getwd()
+
 ### 1.
 #Unzipping in a folder called "PSET4 External Folder"
 zippath <- "/Users/tonanziht/Downloads/PSET4 External Folder/"
@@ -12,18 +14,18 @@ unzip(zipF,exdir=zippath)
 ### 2
 #creating parquet
 csv_path <- "/Users/tonanziht/Downloads/PSET4 External Folder/"
-nursing_data_parquet <- open_dataset(
+(nursing_data_parquet <- open_dataset(
   sources = paste0(csv_path, "nursing-home-inspect-data"),
   col_types = schema(facility_id = string()),
   format = "csv"
-)
+))
 #lazy display of 10 csv files
 nursing_data_parquet
 glimpse(nursing_data_parquet)
 
 ### 3
 #fixing miscategorization of column "facility_id" from int64 to string
-nursing_partitioned_state <- nursing_data_parquet %>% group_by(state) %>% collect()
+(nursing_partitioned_state <- nursing_data_parquet %>% group_by(state) %>% collect())
 
 #data is partitioned into the external folder by state
 write_dataset(nursing_partitioned_state, path = csv_path, format = "parquet")
@@ -70,7 +72,7 @@ compare_state_speed <- function(state_name) {
   ))
 }
 
-compare_state_speed("NJ") #example
+(compare_state_speed("NJ")) #example
 
 ###5
 get_all_states_performance <- function(nursing_data_parquet, nursing_partitioned_state) {
@@ -127,9 +129,9 @@ get_all_states_performance <- function(nursing_data_parquet, nursing_partitioned
 }
 
 #all states
-performance_data <- get_all_states_performance(nursing_data_parquet, nursing_partitioned_state)
+(performance_data <- get_all_states_performance(nursing_data_parquet, nursing_partitioned_state))
 
-p <- ggplot(performance_data, aes(x = data_size, y = speed_ratio)) +
+(p <- ggplot(performance_data, aes(x = data_size, y = speed_ratio)) +
   geom_point(alpha = 0.6, size = 3) +
   geom_text_repel(
     aes(label = state),
@@ -148,9 +150,9 @@ p <- ggplot(performance_data, aes(x = data_size, y = speed_ratio)) +
     plot.title = element_text(hjust = 0.5, size = 14),
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 10)
-  )
+  ))
 
-ggsave("state_speed_performance.png", p, width = 10, height = 8, dpi = 300)
+(ggsave("state_speed_performance.png", p, width = 10, height = 8, dpi = 300))
 
 
 ###6
@@ -202,10 +204,10 @@ get_all_states_timing <- function(nursing_data_parquet, nursing_partitioned_stat
 }
 
 # timing data for all states
-timing_data <- get_all_states_timing(nursing_data_parquet, nursing_partitioned_state)
+(timing_data <- get_all_states_timing(nursing_data_parquet, nursing_partitioned_state))
 
 # reshape data for plotting
-timing_long <- timing_data %>%
+(timing_long <- timing_data %>%
   pivot_longer(
     cols = c(parquet_time, partition_time, time_difference),
     names_to = "metric",
@@ -215,9 +217,9 @@ timing_long <- timing_data %>%
     metric = factor(metric, 
                     levels = c("parquet_time", "partition_time", "time_difference"),
                     labels = c("Non-partitioned Time", "Partitioned Time", "Time Saved"))
-  )
+  ))
 
-p <- ggplot(timing_long, aes(x = reorder(state, time), y = time, color = metric)) +
+(p <- ggplot(timing_long, aes(x = reorder(state, time), y = time, color = metric)) +
   geom_point(size = 3) +
   geom_line(aes(group = metric)) +
   scale_color_manual(values = c("#E41A1C", "#377EB8", "#4DAF4A")) +
@@ -236,6 +238,6 @@ p <- ggplot(timing_long, aes(x = reorder(state, time), y = time, color = metric)
     legend.position = "top",
     legend.title = element_text(size = 10),
     panel.grid.minor = element_blank()
-  )
+  ))
 
-ggsave("state_timing_comparison.png", p, width = 12, height = 8, dpi = 300)
+(ggsave("state_timing_comparison.png", p, width = 12, height = 8, dpi = 300))
