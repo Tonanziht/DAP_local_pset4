@@ -27,12 +27,34 @@ file showing how data size affects processing speed.
 processing times for non-partitioned and partitioned data, generate a line plot comparing processing times across different states, and save the plot as a 
 PNG file showing time comparisons
 
+Side Notes:
+- In the code, Parquet refers to the data that is NOT partitioned; this is clarified in the final graph outputs.
+- In the code, Partitioned, as it's labeled, refers to the data that is partitioned; this is clarified in the final graph outputs.
+
 * Two graphs are included in this repo:
 - state_timing_comparison.png: Compares the three metrics (partitioned, non-partitioned, and difference in timing for each state)
 - state_speed_performance.png: Compares the partitioned and non-partitioned data by factors (non-partitioned/partitioned gives 2x, 3x)
 The R file should be run in order from top to bottom. Keep in mind that the current directory in R needs to be set to the appropriate directory.
 
-ANSWER to question1.R - 
+ANSWER to Q1.5 -  Superficially, there seems to be a vague inverse relationship between the dataset size (number of observations) and the processing speed of partitioning.
+States with smaller datasets (fewer observations) tend to have higher processing speed improvements, when viewing the speed as a FACTOR, when the data is partitioned, 
+while states with larger datasets seem to see lower processing speed improvements, again, when viewing the speed as a FACTOR. For this viewpoint, this suggests that partitioning
+the data can provide bigger performance boosts for smaller datasets compared to larger ones. Smaller datasets seem to see more substantial speed improvements from partitioning. 
+HOWEVER, when data is larger, the difference in time processing is relevant because it could mean completion hours ealier. In summary, the data indicates that the size of
+the non-partitioned/partitioned data, as measured by the number of observations, has an somewhat inverse relationship with the processing speed improvement. Smaller data 
+observations mean that the data benefit more from partitioning than larger datasets in factorized improvements, but larger datasets are processed faster when partitioned compared 
+to when non-partitioned. Again, this is how it seems when we see the speed of processing as FACTORS (that is, 2x, 5, 10x). In all, the heaviest data observations (eg, CA at 44,000)
+are processed faster under partitioning (at 10x) than under filtering, but just not as much as smaller data observations (though some exceptions exist with states like NC and PA).
+
+ANSWER to Q1.6 - Looking at the graph, using seconds in speed as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents the processing time for the 
+partitioned processed data, and the green line show the time saved by using the partitioned format. Examining the relationship, there is a clear pattern - for states with larger
+non-partitioned processing times (higher red line), the time saved by using partitioned processed data (taller green bars) is also greater. Conversely, for states with shorter 
+non-partitioned processing times, the time savings from partitioning is more modest. This indicates an inverse relationship between the size of the non-partitioned 
+process and the benefits of using partitioned processed data. The larger the original dataset, the more dramatic the reduction in processing time when using the partitioned format.
+The key takeaway is that partitioning the data provides the biggest performance gains for processing large, non-partitioned datasets. The overhead of partitioning is 
+outweighed by the efficiency improvements for big data, leading to substantial time savings. But for smaller datasets, the relative benefit of partitioning is less pronounced.
+So in summary, the data shows an inverse relationship between the original dataset size and the time saved by using partitioned data - the larger the original dataset, the 
+greater the time savings from partitioning. This suggests partitioning is most impactful for processing large, non-partitioned data volumes when evaluating by seconds.
 
 
 Question 2: Python
