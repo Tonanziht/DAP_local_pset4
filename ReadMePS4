@@ -1,1 +1,46 @@
+Tonanziht Aguas
+Date Created: 11/30/2024
+Required R packages: library(tidyverse), library(dplyr), library(lubridate), library(stringr), library(tidyr), library(ggplot2), library(ggplot2),
+library(dplyr), library(arrow), library(ggrepel)
+Version of R used: R 4.3.3 GUI 1.80 Big Sur Intel build Version of rStudio used: 2023.12.1+402
 
+Summary of code:
+Question 1: Big Data
+  Overall, this script is a comprehensive analysis of data processing performance, demonstrating how data partitioning and Parquet (non-partitioned) file formats
+can improve data manipulation efficiency across different states' nursing home inspection datasets.
+* question1.R unzips and reads in the Nursing Home Inspect Data
+- The zip labeled "nursing-home-inspect-data.zip" has the csv files.
+* In the 1.1, the code unzips the data and defines the path to a zip file containing nursing home inspection data. We are instructed to create an 
+external folder. We use `unzip()` to extract the contents of the zip file into the specified folder and the we prepare the raw data files for further 
+processing.
+* In 1.2, the code creates a Parquet Dataset. We open the CSV files as a dataset using `open_dataset()`and explicitly set the `facility_id` column to 
+be a string type. We also uses `glimpse()` to display basic information about the dataset and then create a connection to the CSV files that can be 
+processed efficiently.
+* In 1.3, the code fixes the data and partitions. We collect the data and groups it by state, then we convert the data to a partitioned format (splitting
+by state) and write the partitioned data as another Parquet of a series of files, which can be more efficiently queried.
+* In 1.4, the code creates a performance comparison function that compares processing times, measures the time taken to process data for a specific state,
+compares performance between non-partitioned and partitioned data approaches, and returns summary statistics and processing times for the given state.
+* In 1.5, the code does another performance analysis and visualizes the speed factor of partitioning. We develops a function to get performance metrics for
+all states, calculate the processing speed ratio for each state, create a scatter plot visualizing the performance improvement, and save the plot as a PNG 
+file showing how data size affects processing speed.
+* In 1.6, the code does a timing analysis and visualization three metrics. We create a function to get detailed timing information for all states, measures
+processing times for non-partitioned and partitioned data, generate a line plot comparing processing times across different states, and save the plot as a 
+PNG file showing time comparisons
+
+* Two graphs are included in this repo:
+- state_timing_comparison.png: Compares the three metrics (partitioned, non-partitioned, and difference in timing for each state)
+- state_speed_performance.png: Compares the partitioned and non-partitioned data by factors (non-partitioned/partitioned gives 2x, 3x)
+The R file should be run in order from top to bottom. Keep in mind that the current directory in R needs to be set to the appropriate directory.
+
+ANSWER to question1.R - Overall, the sentiment of the article is negative. Whether we look at afinn, nrc, or bing analyses, the graphs for each indicate a leaning negative connotation to the language used in the report.
+With regard to the NRC analysis, the emotions that have the highest counts in the analysis are: "negative" at just under 70x, "positive" at just over 60x, "fear" at just over 50x, and "trust" + "sadness" at just over 40x.
+With regard to the bing analysis, the graph shows a binary sentiment classification with two categories: negative and positive sentiments. Negative sentiment dominates with approximately 90 counts while positive sentiment 
+is lower with approximately 25 counts. This suggests that the overall tone of the health roundup was mostly negative.
+With regard to the afinn analysis, the graph shows a more nuanced sentiment scale from -3 to +3. The highest counts were found at -2, indicating strong negative sentiment (about 80 counts). There's a moderate presence of 
+positive sentiment (values 1-3). Nonetheless, the distribution is skewed towards negative values while very extreme sentiments (-3 and +3) are relatively rare.
+The command print(country_mentions) identifies the countries mentioned in the report: Sudan, Uganda, Kenya, Oman, Switzerland, and the United States. Using the co-occurence command for each countries' names as well as the 
+most prevalent word --"report"--, we can find the co-occurence of both (and related) terms. Co-occurence of terms are highest for Sudan and Uganda. 
+
+Question 4: Python
+
+Explanation of original data source: Unredacted nursing home inspections acquired by ProPublica through a Freedom of Information Act request as part of their investigation on nursing home quality
