@@ -6,30 +6,30 @@ Version of R used: R 4.3.3 GUI 1.80 Big Sur Intel build Version of rStudio used:
 
 Summary of code:
 Question 1: Big Data
-  Overall, this script is a comprehensive analysis of data processing performance, demonstrating how data partitioning and Parquet (non-partitioned) file formats
+  Overall, this code is an analysis of data processing performance, demonstrating how data partitioning and Parquet (non-partitioned) processing formats
 can improve data manipulation efficiency across different states' nursing home inspection datasets.
 * question1.R unzips and reads in the Nursing Home Inspect Data
 - The zip labeled "nursing-home-inspect-data.zip" has the csv files.
 * In the 1.1, the code unzips the data and defines the path to a zip file containing nursing home inspection data. We are instructed to create an 
-external folder. We use `unzip()` to extract the contents of the zip file into the specified folder and the we prepare the raw data files for further 
+external folder. I use `unzip()` to extract the contents of the zip file into the specified folder and then I prepare the raw data files for further 
 processing.
-* In 1.2, the code creates a Parquet Dataset. We open the CSV files as a dataset using `open_dataset()`and explicitly set the `facility_id` column to 
-be a string type. We also uses `glimpse()` to display basic information about the dataset and then create a connection to the CSV files that can be 
+* In 1.2, the code creates a Parquet Dataset. I open the CSV files as a dataset using `open_dataset()`and explicitly set the `facility_id` column to 
+be a string type. I also uses `glimpse()` to display basic information about the dataset and then create a connection to the CSV files that can be 
 processed efficiently.
-* In 1.3, the code fixes the data and partitions. We collect the data and groups it by state, then we convert the data to a partitioned format (splitting
+* In 1.3, the code fixes the data and partitions. I collect the data and groups it by state, then I convert the data to a partitioned format (splitting
 by state) and write the partitioned data as another Parquet of a series of files, which can be more efficiently queried.
 * In 1.4, the code creates a performance comparison function that compares processing times, measures the time taken to process data for a specific state,
 compares performance between non-partitioned and partitioned data approaches, and returns summary statistics and processing times for the given state.
 * In 1.5, the code does another performance analysis and visualizes the speed factor of partitioning. We develops a function to get performance metrics for
 all states, calculate the processing speed ratio for each state, create a scatter plot visualizing the performance improvement, and save the plot as a PNG 
 file showing how data size affects processing speed.
-* In 1.6, the code does a timing analysis and visualization three metrics. We create a function to get detailed timing information for all states, measures
+* In 1.6, the code does a timing analysis and visualization three metrics. I create a function to get detailed timing information for all states, measures
 processing times for non-partitioned and partitioned data, generate a line plot comparing processing times across different states, and save the plot as a 
 PNG file showing time comparisons
 
 Side Notes:
 - In the code, Parquet refers to the data that is NOT partitioned; this is clarified in the final graph outputs.
-- In the code, Partitioned, as it's labeled, refers to the data that is partitioned; this is clarified in the final graph outputs.
+- In the code, partitioned, as it's labeled, refers to the data that is partitioned; this is clarified in the final graph outputs.
 
 * Two graphs are included in this repo:
 - state_timing_comparison.png: Compares the three metrics (partitioned, non-partitioned, and difference in timing for each state)
@@ -46,7 +46,7 @@ observations mean that the data benefit more from partitioning than larger datas
 to when non-partitioned. Again, this is how it seems when we see the speed of processing as FACTORS (that is, 2x, 5, 10x). In all, the heaviest data observations (eg, CA at 44,000)
 are processed faster under partitioning (at 10x) than under filtering, but just not as much as smaller data observations (though some exceptions exist with states like NC and PA).
 
-ANSWER to Q1.6 - Looking at the graph, using seconds in speed as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents the processing time for the 
+ANSWER to Q1.6 - Looking at the graph, using seconds of time as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents the processing time for the 
 partitioned processed data, and the green line show the time saved by using the partitioned format. Examining the relationship, there is a clear pattern - for states with larger
 non-partitioned processing times (higher red line), the time saved by using partitioned processed data (taller green bars) is also greater. Conversely, for states with shorter 
 non-partitioned processing times, the time savings from partitioning is more modest. This indicates an inverse relationship between the size of the non-partitioned 
@@ -54,7 +54,7 @@ process and the benefits of using partitioned processed data. The larger the ori
 The key takeaway is that partitioning the data provides the biggest performance gains for processing large, non-partitioned datasets. The overhead of partitioning is 
 outweighed by the efficiency improvements for big data, leading to substantial time savings. But for smaller datasets, the relative benefit of partitioning is less pronounced.
 So in summary, the data shows an inverse relationship between the original dataset size and the time saved by using partitioned data - the larger the original dataset, the 
-greater the time savings from partitioning. This suggests partitioning is most impactful for processing large, non-partitioned data volumes when evaluating by seconds.
+greater the time savings from partitioning. This suggests partitioning is most impactful for processing large, non-partitioned data volumes when evaluating by seconds of time.
 
 
 Question 2: Python
