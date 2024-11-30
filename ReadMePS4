@@ -32,15 +32,13 @@ PNG file showing time comparisons
 - state_speed_performance.png: Compares the partitioned and non-partitioned data by factors (non-partitioned/partitioned gives 2x, 3x)
 The R file should be run in order from top to bottom. Keep in mind that the current directory in R needs to be set to the appropriate directory.
 
-ANSWER to question1.R - Overall, the sentiment of the article is negative. Whether we look at afinn, nrc, or bing analyses, the graphs for each indicate a leaning negative connotation to the language used in the report.
-With regard to the NRC analysis, the emotions that have the highest counts in the analysis are: "negative" at just under 70x, "positive" at just over 60x, "fear" at just over 50x, and "trust" + "sadness" at just over 40x.
-With regard to the bing analysis, the graph shows a binary sentiment classification with two categories: negative and positive sentiments. Negative sentiment dominates with approximately 90 counts while positive sentiment 
-is lower with approximately 25 counts. This suggests that the overall tone of the health roundup was mostly negative.
-With regard to the afinn analysis, the graph shows a more nuanced sentiment scale from -3 to +3. The highest counts were found at -2, indicating strong negative sentiment (about 80 counts). There's a moderate presence of 
-positive sentiment (values 1-3). Nonetheless, the distribution is skewed towards negative values while very extreme sentiments (-3 and +3) are relatively rare.
-The command print(country_mentions) identifies the countries mentioned in the report: Sudan, Uganda, Kenya, Oman, Switzerland, and the United States. Using the co-occurence command for each countries' names as well as the 
-most prevalent word --"report"--, we can find the co-occurence of both (and related) terms. Co-occurence of terms are highest for Sudan and Uganda. 
+ANSWER to question1.R - 
 
-Question 4: Python
+
+Question 2: Python
+ANSWER to Q2.2- The code basically creates a word game that picks a random 5-letter word and the user must to try to guess it. The user gets 5 chances to figure it out. After each guess, the game tells you which letters 
+you got right and in the right spot! The user must first run the program, type in any 5-letter word and hit enter, and then the game will show you which letters you got right. For example, if you guess "APPLE" and the answer
+is "NERVE", it'll show "____e" . The underscore (_) means that letter was wrong and any letters shown mean you got them in the exact right spot! The code makes it so that the user only gets 5 tries and can only enter 5-letter
+words. No numbers or special characters are allowed and it doesn't matter if you use uppercase or lowercase letters.
 
 Explanation of original data source: Unredacted nursing home inspections acquired by ProPublica through a Freedom of Information Act request as part of their investigation on nursing home quality
