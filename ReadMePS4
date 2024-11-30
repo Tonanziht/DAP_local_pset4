@@ -36,9 +36,13 @@ ANSWER to question1.R -
 
 
 Question 2: Python
-ANSWER to Q2.2- The code basically creates a word game that picks a random 5-letter word and the user must to try to guess it. The user gets 5 chances to figure it out. After each guess, the game tells you which letters 
-you got right and in the right spot! The user must first run the program, type in any 5-letter word and hit enter, and then the game will show you which letters you got right. For example, if you guess "APPLE" and the answer
-is "NERVE", it'll show "____e" . The underscore (_) means that letter was wrong and any letters shown mean you got them in the exact right spot! The code makes it so that the user only gets 5 tries and can only enter 5-letter
-words. No numbers or special characters are allowed and it doesn't matter if you use uppercase or lowercase letters.
+ANSWER to Q2.2 - The code basically creates a word game that picks a random 5-letter word and the user must to try to guess it. The user gets 5 chances to figure
+it out. After each guess, the game tells you which letters you got right and if any letters are in the right spot. The user must first run the program, type in 
+any 5-letter word and hit enter, and then the game will show you which letters you got right. For example, if you guess "APPLE" and the answer is "NERVE", it'll 
+show "____e" . The underscore (_) means that letter was wrong and any letters shown mean you got them in the exact right spot! The code makes it so that the user 
+only gets 5 tries and can only enter 5-letter words. No numbers or special characters are allowed and it doesn't matter if you use uppercase or lowercase letters. 
+Though the game looks simple, the code has to do alot by making sure the inputs are valid, withing the 5 letter condition, and indicate through dynamic reponses if
+the user has the wrong answer, if the inputted word is invalid, how many attempts the user has left, if the answer is correct, and what letters match the right answer
+if a similar word is given.
 
 Explanation of original data source: Unredacted nursing home inspections acquired by ProPublica through a Freedom of Information Act request as part of their investigation on nursing home quality
