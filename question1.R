@@ -241,3 +241,51 @@ get_all_states_timing <- function(nursing_data_parquet, nursing_partitioned_stat
   ))
 
 (ggsave("state_timing_comparison.png", p, width = 12, height = 8, dpi = 300))
+
+
+# First, calculate the number of observations per state
+state_obs_count <- nursing_data_parquet %>%
+  group_by(state) %>%
+  summarise(obs_count = n()) %>%
+  collect()
+
+# Merge the observation count with the timing data
+timing_data_with_obs <- timing_data %>%
+  left_join(state_obs_count, by = "state")
+
+# Reshape data for plotting
+timing_long <- timing_data_with_obs %>%
+  pivot_longer(
+    cols = c(parquet_time, partition_time, time_difference),
+    names_to = "metric",
+    values_to = "time"
+  ) %>%
+  mutate(
+    metric = factor(metric, 
+                    levels = c("parquet_time", "partition_time", "time_difference"),
+                    labels = c("Non-partitioned Time", "Partitioned Time", "Time Saved"))
+  )
+
+# Create the plot with observations on x-axis
+p <- ggplot(timing_long, aes(x = obs_count, y = time, color = metric)) +
+  geom_point(size = 3) +
+  geom_line(aes(group = metric)) +
+  scale_color_manual(values = c("#E41A1C", "#377EB8", "#4DAF4A")) +
+  labs(
+    title = "Processing Time by Number of Observations",
+    x = "Number of Observations",
+    y = "Time (seconds)",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    legend.position = "top",
+    legend.title = element_text(size = 10),
+    panel.grid.minor = element_blank()
+  )
+
+# Save the plot
+ggsave("state_timing_by_observations.png", p, width = 12, height = 8, dpi = 300)
