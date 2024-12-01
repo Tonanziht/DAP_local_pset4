@@ -32,7 +32,7 @@ Side Notes:
 - In the code, partitioned, as it's labeled, refers to the data that is partitioned; this is clarified in the final graph outputs.
 
 * Two graphs are included in this repo:
-- state_timing_comparison.png: Compares the three metrics (partitioned, non-partitioned, and difference in timing for each state)
+- state_timing_by_observations.png: Compares the three metrics (partitioned, non-partitioned, and difference in timing for each state)
 - state_speed_performance.png: Compares the partitioned and non-partitioned data by factors (non-partitioned/partitioned gives 2x, 3x)
 The R file should be run in order from top to bottom. Keep in mind that the current directory in R needs to be set to the appropriate directory.
 
@@ -46,15 +46,14 @@ observations mean that the data benefit more from partitioning than larger datas
 to when non-partitioned. Again, this is how it seems when we see the speed of processing as FACTORS (that is, 2x, 5, 10x). In all, the heaviest data observations (eg, CA at 44,000)
 are processed faster under partitioning (at 10x) than under filtering, but just not as much as smaller data observations (though some exceptions exist with states like NC and PA).
 
-ANSWER to Q1.6 - Looking at the graph, using seconds of time as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents the processing time for the 
-partitioned processed data, and the green line show the time saved by using the partitioned format. Examining the relationship, there is a clear pattern - for states with larger
-non-partitioned processing times (higher red line), the time saved by using partitioned processed data (taller green bars) is also greater. Conversely, for states with shorter 
-non-partitioned processing times, the time savings from partitioning is more modest. This indicates an inverse relationship between the size of the non-partitioned 
-process and the benefits of using partitioned processed data. The larger the original dataset, the more dramatic the reduction in processing time when using the partitioned format.
-The key takeaway is that partitioning the data provides the biggest performance gains for processing large, non-partitioned datasets. The overhead of partitioning is 
-outweighed by the efficiency improvements for big data, leading to substantial time savings. But for smaller datasets, the relative benefit of partitioning is less pronounced.
-So in summary, the data shows an inverse relationship between the original dataset size and the time saved by using partitioned data - the larger the original dataset, the 
-greater the time savings from partitioning. This suggests partitioning is most impactful for processing large, non-partitioned data volumes when evaluating by seconds of time.
+ANSWER to Q1.6 - Looking at the graph, using seconds of time as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents
+the processing time for the partitioned processed data, and the green line show the time saved (or difference) by using the partitioned format. Examining the relationship, there is a 
+clear pattern - for states with larger non-partitioned processing times (higher red line), the time saved by using partitioned processed data (taller green bars) remains significant. 
+Conversely, for states with shorter non-partitioned processing times, the time savings from partitioning is very significant but rather negligible. This indicates a relationship between the size of 
+the non-partitioned process and the benefits of using partitioned processed data. The key takeaway is that partitioning the data is most relevant when compared to the processing of large, non-partitioned
+data because that difference is notable and still large. For any further bigger data, the difference seems to be upwards positive correlation as well (should lead to substantial time savings). But for smaller datasets,
+the relative benefit of partitioning is high by the times of speed but less pronounced because the time difference is rather unfelt. This suggests partitioning is most impactful for processing large, non-partitioned data
+volumes when evaluating by larger spans of time.
 
 
 Question 2: Python
