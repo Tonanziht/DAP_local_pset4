@@ -49,11 +49,11 @@ are processed faster under partitioning (at 10x) than under filtering, but just 
 ANSWER to Q1.6 - Looking at the graph, using seconds of time as our measure, the red line represents the processing time for the non-partitioned processed data, the blue line represents
 the processing time for the partitioned processed data, and the green line show the time saved (or difference) by using the partitioned format. Examining the relationship, there is a 
 clear pattern - for states with larger non-partitioned processing times (higher red line), the time saved by using partitioned processed data (taller green bars) remains significant. 
-Conversely, for states with shorter non-partitioned processing times, the time savings from partitioning is very significant but rather negligible. This indicates a relationship between the size of 
-the non-partitioned process and the benefits of using partitioned processed data. The key takeaway is that partitioning the data is most relevant when compared to the processing of large, non-partitioned
-data because that difference is notable and still large. For any further bigger data, the difference seems to be upwards positive correlation as well (should lead to substantial time savings). But for smaller datasets,
-the relative benefit of partitioning is high by the times of speed but less pronounced because the time difference is rather unfelt. This suggests partitioning is most impactful for processing large, non-partitioned data
-volumes when evaluating by larger spans of time.
+Conversely, for states with shorter non-partitioned processing times, the time savings from partitioning is very significant but rather negligible. This indicates a relationship between 
+the size of the non-partitioned process and the benefits of using partitioned processed data. The key takeaway is that partitioning the data is most relevant when compared to the processing
+of large, non-partitioned data because that difference is notable and still large. For any further bigger data, the difference seems to be upwards positive correlation as well (should lead 
+to substantial time savings). But for smaller datasets, the relative benefit of partitioning is high by the times of speed but less pronounced because the time difference is rather unfelt.
+This suggests partitioning is most impactful for processing large, non-partitioned data volumes when evaluating by larger spans of time.
 
 
 Question 2: Python
